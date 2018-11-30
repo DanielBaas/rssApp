@@ -1,8 +1,4 @@
-//document.addEventListener('DOMContentLoaded', function () {
-//document.getElementById('alertButton').addEventListener('click', ShowUrl);
-document.getElementById('field').addEventListener('keyup', showHint);
-//}); 
-
+document.getElementById('field').addEventListener('keyup', search_feed);
 
 function ShowUrl(){
     chrome.tabs.getSelected(null, function(tab) {
@@ -10,26 +6,7 @@ function ShowUrl(){
 });
 
 }
-/*
-function myfunction(tablink) {
-    var urlretained = tablink;
-    alert(urlretained);
 
-    $.ajax({
-            type: "POST",
-            url: "http://localhost/Rss/index2.php",
-            data: {"myData":urlretained},
-            success: function(data){
-                alert('Items added');
-            },
-            error: function(e){
-                console.log(e.message);
-                alert('Addition Failed');
-            }
-    });
-
-}
-*/
 function cargarHTML(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
@@ -41,8 +18,21 @@ function cargarHTML(){
     }
 }
 
-function showHint() {
+window.onload = function (){
+    showRecentFeeds();
+}
+
+function search_feed(){
     var str = document.getElementById('field').value;
+    send_server(str);
+}
+
+function showRecentFeeds() {
+    send_server("");
+}
+
+function send_server(str){
+        
     if (str.length == 0) { 
         document.getElementById("txtHint").innerHTML = "";
         return;

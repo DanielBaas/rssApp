@@ -1,10 +1,5 @@
 <?php 
 
-$q = $_REQUEST["q"];
-
-$hint = "";
-
-
 
 require_once 'vendor/autoload.php';
  
@@ -20,7 +15,42 @@ $feed->init();
 echo '<h1>' . $feed->get_title() . '</h1>';
 echo '<p>' . $feed->get_description() . '</p>';
 */
- create_grid($feed, 3); 
+
+$q = $_REQUEST["q"];
+$hint = "";
+if( $q == ""){
+	echo "asd";
+	create_grid($feed, 3); 
+}else{
+
+	search($q, $feed);
+
+}
+
+function search($str, $feed){
+	$hint = "";
+	$str = strtolower($str);
+    $len=strlen($str);
+	foreach($feed->get_items( 0 ,0) as $item) {
+        if (stristr($str, substr($item->get_title(), 0, $len))) {
+            
+                echo "<div class='card-margin'> ";
+				echo "<div class='card blue-grey darken-1' >
+	        			<div class='card-content white-text'>
+	          				<span class='card-title'>" . $item->get_title() . "</span>";
+	    		echo "<p>" . $item->get_description() . "</p>";
+	    		echo "<p>" . $item->get_date('Y-m-d H:i:s') . "</p>";
+				echo "</div>
+	   					<div class='card-action'>
+	          				<a href='" . $item->get_link() . "'> ir a la noticia </a>  
+	        				</div>
+	      				</div></div>";
+            
+        }
+    }
+   
+}
+
 
  function create_grid($feed, $num_colum){
 	$articles_column = $feed->get_item_quantity()/3;
