@@ -1,5 +1,5 @@
 <?php
-include "simplepie-1.5/autoloader.php";
+require_once 'vendor/autoload.php';
 
 // init the feed
 $url = 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml';
@@ -9,7 +9,7 @@ $feed->set_feed_url($url);
 // enable caching
 $feed->enable_cache();
 
-$feed->set_cache_location('E:\PhpStormProjects\RSS\cache');
+$feed->set_cache_location($_SERVER['DOCUMENT_ROOT'] . "/Rss/app");
 
 $feed->init();
 ?>
@@ -42,7 +42,6 @@ if ($mysqli -> connect_errno) {
     echo '<br>';
 
     echo '<h3>'. "Error: " . $mysqli -> connect_errno . ' - ' . $mysqli -> connect_error . '</h3>';
-
     exit;
 }
 
@@ -53,8 +52,14 @@ echo '<p>' . $feed->get_description() . '</p>';
 
 // show the first five items in the feed
 foreach ($feed->get_items(0, 30) as $item) {
+    
+    $titulo = $item->get_title();
+    $descripcion = $item->get_description();
+    $fecha = $item->get_date();
+    $link = $item->get_link();
 
-    $sql = "INSERT INTO `noticias` (`link`, `titulo`, `descripcion`, `fecha`)" . "VALUES ('$link','$titulo','$descripcion','$fecha')";        
+    $sql = "INSERT INTO `noticias` (`link`, `titulo`, `descripcion`, `fecha`)" . "VALUES ('$link','$titulo','$descripcion','$fecha')"; 
+    echo "<br>" . $sql . "<br>";       
     $result = $mysqli -> query($sql);
 
     	if ($result) {
