@@ -1,0 +1,39 @@
+<html>
+<head>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+	<style type="text/css">
+	html{
+	width: 400px;
+	padding: 5px; 
+		}
+		.main-container {
+			
+			display: flex;
+			flex-wrap: wrap;-
+		}
+		.card-margin{
+			
+		}
+		.card-action{
+			border-radius: .5rem !important;
+		}
+		.card{
+			border-radius: .5rem !important;
+		}
+	</style>
+</head>
+<body>
+
+<p><b>Start typing a name in the input field below:</b></p>
+<form> 
+First name: <input id="field" type="text">
+</form>
+<p>Suggestions: <span id="txtHint"></span></p>
+<div class="main-container"> </div>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="popup.js"></script>
+</body>
+</html>
