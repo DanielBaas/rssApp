@@ -1,10 +1,14 @@
+window.onload = function(){
+    showRecentFeeds();
+}
+
+
 document.getElementById('field').addEventListener('keyup', search_feed);
 
 function ShowUrl(){
     chrome.tabs.getSelected(null, function(tab) {
     myfunction(tab.url);
 });
-
 }
 
 function cargarHTML(){
@@ -18,9 +22,7 @@ function cargarHTML(){
     }
 }
 
-window.onload = function (){
-    showRecentFeeds();
-}
+
 
 function search_feed(){
     var str = document.getElementById('field').value;
@@ -33,10 +35,6 @@ function showRecentFeeds() {
 
 function send_server(str){
         
-    if (str.length == 0) { 
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -45,5 +43,5 @@ function send_server(str){
         };
         xmlhttp.open("GET", "http://localhost/Rss/index3.php?q=" + str, true);
         xmlhttp.send();
-    }
+    
 }
