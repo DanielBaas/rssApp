@@ -5,19 +5,12 @@ $server ="localhost";
 $user = "root";
 $password = "";
 
-if (isset($_POST['search'])) 
 
     $var = array();
-
-
-
     $mysqli = mysqli_connect($server, $user, $password, $bd);
-    $search = mysqli_real_escape_string($mysqli, isset($_POST['search']));
+    $search = $_GET['q'];
     if( ! $mysqli ) die( "Error de conexion ".mysqli_connect_error() );
  
-
-
-
 
 
 $sql = "SELECT * FROM noticias WHERE 
@@ -29,16 +22,25 @@ $sql = "SELECT * FROM noticias WHERE
 
 $result = mysqli_query($mysqli, $sql);
 
+/*
 while($obj = mysqli_fetch_assoc($result)) {
-
 $var[] = $obj;
+
+}*/
+echo $result->num_rows;
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo $row;
+    }
+} else {
+    echo "0 results";
 }
 
 $mysqli->close(); 
    
 
 
-
-echo '{"noticias":'.json_encode($var).'}';
+echo '{"noticias":'.json_encode().'}';
 
 ?>
