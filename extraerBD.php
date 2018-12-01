@@ -27,11 +27,12 @@ while($obj = mysqli_fetch_assoc($result)) {
 $var[] = $obj;
 
 }*/
-echo $result->num_rows;
+//echo $result->num_rows;
+$array = array();
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row;
+        $array[] = $row;
     }
 } else {
     echo "0 results";
@@ -41,6 +42,6 @@ $mysqli->close();
    
 
 
-echo '{"noticias":'.json_encode().'}';
+echo '{"noticias":'.json_encode($array).'}';
 
 ?>
