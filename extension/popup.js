@@ -1,4 +1,4 @@
-document.getElementById('field').addEventListener('keyup', search_feed);
+document.getElementById('button').addEventListener('click', search_feed);
 
 function search_feed(){
     var str = document.getElementById('field').value;
@@ -11,9 +11,7 @@ function send_server(str){
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                
                 generate_content(this.responseText);
-                
             }
         };
         xmlhttp.open("GET", "http://localhost/Rss/extraerBD.php?q=" + str, true);
@@ -22,17 +20,21 @@ function send_server(str){
 }
 
 function generate_content(json){
-    var myArr = JSON.parse(json);
-    var container = document.getElementById("txtHint");
+    if(json != "{}"){
+        var myArr = JSON.parse(json);
+        var container = document.getElementById("txtHint");
 
-    container.innerHTML = '';
-    var array_length = myArr["noticias"].length;
+        container.innerHTML = '';
+        var array_length = myArr["noticias"].length;
     
-    for (var i = 0; i < array_length; i++) {
-        var noticia = myArr["noticias"][i];
-        var card = create_card(noticia.titulo, noticia.descripcion, noticia.fecha, noticia.link)
-        container.appendChild(card);
-    }
+        for (var i = 0; i < array_length; i++) {
+            var noticia = myArr["noticias"][i];
+            var card = create_card(noticia.titulo, noticia.descripcion, noticia.fecha, noticia.link)
+            container.appendChild(card);
+        }
+    }else{
+            alert("no result found");
+        }
 }   
 
 function create_card(titulo, descripcion, fecha, enlace){
@@ -48,6 +50,7 @@ function create_card(titulo, descripcion, fecha, enlace){
     var card_action = createElement("div", "card-action");
     var link = createElement("a", "");
     link.href = enlace;
+    link.target = "_blank";
     link.innerHTML = "ir a la noticia";
 
     card_content.appendChild(card_title);
