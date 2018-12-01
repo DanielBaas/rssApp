@@ -34,14 +34,16 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $array[] = $row;
     }
+    echo '{"noticias":'.json_encode($array).'}';
 } else {
-    echo "0 results";
+    echo "{}";
+
 }
 
 $mysqli->close(); 
    
 
 
-echo '{"noticias":'.json_encode($array).'}';
+
 
 ?>
