@@ -33,7 +33,7 @@ function generate_content(json){
             container.appendChild(card);
         }
     }else{
-            alert("no result found");
+            showMessage();
         }
 }   
 
@@ -69,6 +69,10 @@ function createElement(type, className){
     var element = document.createElement(type);
     element.className = className;  
     return element;
+}
+function showMessage(){
+    var container = document.getElementById("txtHint");
+    container.innerHTML =  "no se encontraron resultados";
 }
 
 
