@@ -1,0 +1,36 @@
+Puntos a considerar para la optimización
+
+
+
+
+De lado del cliente (Frontend)
+
+	* Minimizar y/o ofuscar el código de todos los archivos html, js y css
+	* Habilitar la caché del navegador
+	* Los archivos de código en documentos aparte y no dentro del html
+
+
+
+
+De lado del servidor (Backend)
+
+	* Minimizar y/o ofuscar el codigo php y colocarlo en documento aparte
+	* Crear archivos .htaccess para proteger el directorio dentro del servidor
+	* Configurar el archivo httpd.conf de apache, como sigue:
+		* Habilitar archivos .htaccess para protección (
+
+			DocumentRoot "/www/htdocs"
+			<Directory "/">
+  				AllowOverride all
+			</Directory>
+		)
+		
+		* Especificar que tipo de archivos index puede procesar: (
+			DirectoryIndex index.cgi index.pl index.shtml index.html
+		)
+
+		* Habilitar el caché del servidor mediante el módulo mod_caché (ver http://www.vicente-navarro.com/blog/2007/12/02/usando-el-mod_cache-de-apache-para-que-el-mod_deflate-no-incremente-la-carga-del-servidor/)
+		* Habilitar la compresión del servidor mediante el módulo mod_deflate (ver https://knackforge.com/blog/karalmax/how-enable-gzip-compression-apache   y http://www.vicente-navarro.com/blog/2007/11/23/probando-el-mod_deflate-de-apache/)
+		* Habilitar el servicio de memcached y usarlo en las consultas sql del php.
+		* Optimizar las consultas sql con match en vez de like
+		
