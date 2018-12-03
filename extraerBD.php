@@ -1,5 +1,6 @@
 <?php
 
+
 $bd = "rss";
 $server ="localhost";
 $user = "root";
@@ -10,9 +11,23 @@ $password = "";
     $mysqli = mysqli_connect($server, $user, $password, $bd);
     $search = $_GET['q'];
     if( ! $mysqli ) die( "Error de conexion ".mysqli_connect_error() );
- 
 
-$sql = "SELECT * FROM noticias WHERE MATCH(titulo,descripcion) against('$search')";
+// Esta sentencia usa LIKE
+
+/* $sql = "SELECT * FROM noticias WHERE 
+    id_noticia LIKE '%$search%' OR
+    link LIKE '%$search%' OR
+    titulo LIKE '%$search%' OR
+    descripcion LIKE '%$search%' OR
+    fecha LIKE '%$search%'"; */
+
+
+// Esta sentencia usa MATCH
+// Antes de ejecutar la sentencia hay que ejecutar lo siguiente:
+// 
+// alter table noticias ADD FULLTEXT INDEX Buscar (titulo ASC, descripcion ASC)
+$sql = "SELECT * FROM noticias WHERE MATCH(titulo,descripcion) against('%$search%*')";
+
 
 $result = mysqli_query($mysqli, $sql);
 

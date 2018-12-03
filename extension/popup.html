@@ -1,5 +1,6 @@
-<html>
+<html lang="en">
 <head>
+	<title>Noticias</title>
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified JavaScript -->
@@ -7,14 +8,18 @@
 	html{
 	width: 400px;
 	padding: 5px; 
+	margin-left: 10px !important;
 		}
 		.main-container {
 			
 			display: flex;
-			flex-wrap: wrap;-
+			flex-wrap: wrap;
 		}
 		.card-margin{
 			
+		}
+		.button-container{
+			justify-content: center;
 		}
 		.card-action{
 			border-radius: .5rem !important;
@@ -26,15 +31,18 @@
 </head>
 <body>
 
-<p><b>Start typing a name in the input field below:</b></p>
-
     <input placeholder="  Estas buscando algo en especifico?" id="field" type="text" class="validate">
-<button id="button" class="waves-effect waves-light btn"> search </button>
+<div class='button-container center'>    
+<button id="buscar" class="waves-effect waves-light btn"> Buscar </button>
 
+
+<button id="actualizar" class="waves-effect waves-light btn"> Actualizar </button>
+</div>
 <p>Suggestions: <span id="txtHint"></span></p>
 <div class="main-container"> </div>
 
-<script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="popup.js"></script>
 </body>
 </html>
+
+

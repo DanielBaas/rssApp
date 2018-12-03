@@ -1,9 +1,9 @@
-document.getElementById('button').addEventListener('click', search_feed);
+document.getElementById('buscar').addEventListener('click', search_feed);
+document.getElementById('actualizar').addEventListener('click', updateDB);
 
 function search_feed(){
     var str = document.getElementById('field').value;
     send_server(str);
-
 }
 
 function send_server(str){
@@ -15,6 +15,19 @@ function send_server(str){
             }
         };
         xmlhttp.open("GET", "http://localhost/Rss/extraerBD.php?q=" + str, true);
+        xmlhttp.send();
+}
+
+function updateDB(str){
+        
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert(this.responseText);
+                showMessage("La base de datos se ha actualizado")
+            }
+        };
+        xmlhttp.open("GET", "http://localhost/Rss/enviarBD.php", true);
         xmlhttp.send();
     
 }
@@ -33,7 +46,7 @@ function generate_content(json){
             container.appendChild(card);
         }
     }else{
-            showMessage();
+            showMessage("no se han encontrado noticias");
         }
 }   
 
@@ -60,19 +73,17 @@ function create_card(titulo, descripcion, fecha, enlace){
     card.appendChild(card_content);
     card.appendChild(card_action);
     card_margin.appendChild(card);
-
     return card_margin;
-
-
 }
 function createElement(type, className){
     var element = document.createElement(type);
     element.className = className;  
     return element;
 }
-function showMessage(){
+function showMessage(message){
     var container = document.getElementById("txtHint");
-    container.innerHTML =  "no se encontraron resultados";
+    container.innerHTML =  "";
+    container.innerHTML =  message;
 }
 
 
